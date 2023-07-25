@@ -1,0 +1,19 @@
+.MODEL small
+.STACK 100h
+.DATA
+.CODE 
+
+MAIN PROC
+    ;LAB TASK-2.4
+    MOV AH,2  
+    MOV DL,'A'    
+    MOV CX,30 
+         
+PRINT_LOOP:
+    INT 21h         
+    LOOP PRINT_LOOP
+
+    MOV AH, 4Ch     
+    INT 21h         
+MAIN ENDP
+END MAIN

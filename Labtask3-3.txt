@@ -1,0 +1,16 @@
+.model small
+.stack 100h
+.data 
+.code   
+main proc
+    ;lab task-3.3
+     
+    mov al,4h
+    or al,28h
+      
+    exit:
+    mov ah,4ch
+    int 21h
+
+main endp
+end main

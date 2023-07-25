@@ -1,0 +1,77 @@
+.model small
+.stack 100h
+.data   
+msg db  "Enter a character : $"
+msg2 db 0Ah,0Dh,"Your character : $"
+.code 
+main proc
+     ;lab task-2.8
+        
+    mov ax,@data
+    mov ds,ax       
+        
+    mov al,3 
+  
+    cmp al,2  
+                  
+    jg check
+    je check
+    jl else 
+
+    check:              
+        cmp al,9
+        jl take_input
+        je take_input
+        jg else
+        jmp exit
+    
+   take_input:   
+        
+        lea dx,msg        
+        mov ah,9
+        int 21h  
+        
+        mov ah,1              
+        int 21h
+        mov bl,al 
+        sub al,30h
+        
+        lea dx,msg2
+        mov ah,9         
+        int 21h  
+        
+        mov ah,2   
+        mov dl,bl
+        int 21h 
+        jmp exit  
+    
+    else:       
+    cmp al,0h
+    je print_n
+    jne else_again
+    jmp exit
+    
+    else_again:
+    cmp al,1h
+    je print_n
+    jne print_c
+    jmp exit    
+
+    print_c:       
+        mov ah,2
+        mov dl,'c'
+        int 21h
+        jmp exit  
+    
+    print_n:    
+        mov ah,2
+        mov dl,'n'
+        int 21h
+        jmp exit
+              
+    exit: 
+    mov ah,4ch
+    int 21h
+    main endp
+end main
+

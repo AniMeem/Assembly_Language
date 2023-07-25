@@ -1,0 +1,51 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+A DB "VALUE OF CL: $"
+B DB "VALUE OF DL: $"
+
+.CODE
+MAIN PROC
+    ;LAB TASK-2.2
+
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    LEA DX,A
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    
+    MOV CL,AL
+    SUB CL,48
+    
+    LEA DX,B
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    
+    MOV DL,AL
+    SUB DL,48
+    
+    CMP DL,3
+    JL SMALL_B
+    JMP EXIT
+    
+    SMALL_B:
+    CMP CL,3
+    JL DISPLAY_B
+    JMP EXIT
+    
+    DISPLAY_B:
+    MOV AH,2
+    MOV DL,'b'
+    JMP EXIT
+    
+    EXIT:
+    INT 21H
+    MAIN ENDP
+END MAIN

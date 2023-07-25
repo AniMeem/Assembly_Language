@@ -1,0 +1,69 @@
+.model small
+.stack 100h
+
+.data
+msg1 db 'ENTER A BINARY NUMBER UPTO 16 DIGITS:$'
+msg2 db 0DH,0AH,'IN HEX IT IS:$'
+
+.code
+main proc
+    ;lab task-4.3   
+    mov ax,@data
+    mov ds,ax
+    lea dx,msg1
+    mov ah,9
+    int 21h
+    xor bx,bx
+    mov ah,1
+    int 21h
+
+input:
+    cmp al,0dh
+    je end
+    and al,0fh
+    shl bx,1
+    or bl,al
+    int 21h
+    jmp input
+
+end:
+    lea dx,msg2
+    mov ah,9
+    int 21h
+    mov cx,4
+
+convert:
+    mov dl,bh
+    shr dl,1
+    shr dl,1
+    shr dl,1
+    shr dl,1
+    cmp dl,9
+    jbe num
+    add dl,55d
+    jmp display
+
+num:
+    add dl,30h
+
+display:
+    mov ah,2
+    int 21h
+    rcl bx,1
+    rcl bx,1
+    rcl bx,1
+    rcl bx,1
+    loop convert 
+     
+exit:
+    mov ah,4ch
+    int 21h
+
+main endp
+end main
+
+
+
+
+
+

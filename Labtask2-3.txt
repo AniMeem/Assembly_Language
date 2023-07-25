@@ -1,0 +1,59 @@
+.model small
+.stack 100h
+.data
+    msg db 'Enter a number: $'
+    input db ?
+    output db ?
+
+.code
+main proc
+    ;lab task-2.3
+
+    mov ax, @data
+    mov ds, ax
+
+    mov ah, 09h
+    lea dx, msg
+    int 21h
+
+    mov ah, 01h
+    int 21h
+    sub al, 30h
+    cmp al, 1
+    je add
+    cmp al, 2
+    je sub
+    cmp al, 3
+    je print_input
+    jmp invalid
+
+add:
+    mov al, 5
+    jmp print_output
+
+sub:
+    mov al, 1
+    jmp print_output
+
+print_input:
+    mov output, al
+    jmp print_output
+    
+print_output:
+    add al, 30h
+    mov dl, al
+    mov ah, 02h
+    int 21h
+
+invalid:
+    mov ah, 09h
+    int 21h
+    jmp exit
+
+exit:
+    mov ah, 09h
+    int 21h
+    mov ah, 4ch
+    int 21h
+main endp
+end main

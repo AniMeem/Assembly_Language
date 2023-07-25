@@ -1,0 +1,32 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+MSG1 DB 0AH,0DH,'Anika Anjum $'
+MSG2 DB 0AH,0DH,'2000-09-21 $'  
+MSG3 DB 0AH,0DH,'22 years $'    
+
+.CODE
+
+MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    LEA DX,MSG1
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MSG2
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MSG3
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN 
+RET
+
+

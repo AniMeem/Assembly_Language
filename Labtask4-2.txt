@@ -1,0 +1,64 @@
+.model small
+.stack 100h
+
+.data
+msg1 db 0DH,0AH,'ENTER A CHARACTER:$'
+msg2 db 0DH,0AH,'THE ASCII CODE OF $'
+msg3 db ' IN HEX IS:$'
+
+.code
+main proc
+    ;lab task-4.2 
+    mov ax,@data
+    mov ds,ax
+
+input:
+    lea dx,msg1
+    mov ah,9
+    int 21h
+    mov ah,1
+    int 21h
+    mov bl,al
+    cmp bl,0dh
+    je exit
+    lea dx,msg2
+    mov ah,9
+    int 21h
+    mov dl,bl
+    mov ah,2
+    int 21h
+    lea dx,msg3
+    mov ah,9
+    int 21h
+    mov cx,4
+
+convert:
+    mov dl,bh
+    shr dl,1 
+    shr dl,1
+    shr dl,1
+    shr dl,1
+    cmp dl,9
+    jbe num
+    add dl,55d
+    jmp display
+
+num:
+    add dl,30h
+
+display:
+    mov ah,2
+    int 21h
+    rcl bx,1 
+    rcl bx,1
+    rcl bx,1
+    rcl bx,1
+    loop convert
+    jmp input
+
+    exit:
+    mov ah,4ch
+    int 21h
+    
+main endp
+end main

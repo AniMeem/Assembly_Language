@@ -1,0 +1,24 @@
+.model small
+.stack 100h
+.data 
+.code   
+main proc
+    ;lab task-3.2
+    
+    mov ah, 1
+    int 21h
+
+    or al,28h    ;set the 3rd and 5th bits of al register
+    and al, 42h   ;clear the 1st and 6th bits of al
+    xor al, 14h    ; compliment the 2nd and 4th bits of al  
+    mov dl,al
+
+    mov ah, 2
+    int 21h
+      
+    exit:
+    mov ah,4ch
+    int 21h
+
+main endp
+end main
